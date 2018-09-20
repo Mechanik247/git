@@ -1,3 +1,5 @@
+package PO61.Efimov.wdad;
+
 import java.lang.System;
 
 public class Application
