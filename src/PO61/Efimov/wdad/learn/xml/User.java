@@ -30,4 +30,13 @@ public class User
 	{
 		this.rights = rights;
 	}
+	@Override
+	public String toString()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("Name - ").append(GetName()).append('\n');
+		str.append("Mail - ").append(GetMail()).append('\n');
+		str.append("Rights - ").append(GetRights()).append('\n');
+		return str.toString();
+	}
 }

@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE notes SYSTEM "notes.dtd"> 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE notes SYSTEM "notes.dtd">
 <notes>
-    <note>
-        <title>Title1</title>
-        <text>Text1</text>
-        <owner name="Name1" mail="Mail1"/>
-        <privileges>
-            <ALL rights="RW"></ALL>
-        </privileges>
-    </note>
-    <note>
-        <title>Title12</title>
-        <text>Text12</text>
-        <owner name="Name12" mail="Mail12"/>
-        <privileges>
-            <ALL rights="R"></ALL>
-        </privileges>
-    </note>
-    <note>
-        <title>Title13</title>
-        <text>Text13</text>
-        <owner name="Name13" mail="Mail13"/>
-        <privileges>
-            <user mail="Mail3" name="Name3" rights="R"></user>
-        </privileges>
-    </note>
+  <note>
+    <title>Title1</title>
+    <text>NewText</text>
+    <owner mail="Mail1" name="Name1" />
+    <privileges>
+      <ALL rights="RW" />
+    </privileges>
+  </note>
+  <note>
+    <title>Title12</title>
+    <text>Text12</text>
+    <owner mail="Mail12" name="Name12" />
+    <privileges>
+      <ALL rights="R" />
+    </privileges>
+  </note>
+  <note>
+    <title>Title13</title>
+    <text>Text13</text>
+    <owner mail="Mail13" name="Name13" />
+    <privileges>
+      <user mail="Mail3" name="Name3" rights="R" />
+    </privileges>
+  </note>
 </notes>

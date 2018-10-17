@@ -5,13 +5,25 @@ public class Note {
     private String text;
     private String privileges;
     private String cdate;
-    private Owner owner;
+    private User owner;
 
-    public Owner getOwner() {
+    @Override
+    public String toString()
+    {
+        StringBuilder str = new StringBuilder();
+        str.append("Title - ").append(getTitle()).append('\n');
+        str.append("Text - ").append(getText()).append('\n');
+        str.append("Privileges - ").append(getPrivileges()).append('\n');
+        str.append("cdate - ").append(getCdate()).append('\n');
+        str.append("Owner:\n").append(getOwner().toString()).append('\n');
+        return str.toString();
+    }
+
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
