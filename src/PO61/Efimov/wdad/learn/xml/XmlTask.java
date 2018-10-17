@@ -1,53 +1,40 @@
 package PO61.Efimov.wdad.learn.xml;
 
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.DOMBuilder;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.input.StAXEventBuilder;
-import org.jdom2.input.StAXStreamBuilder;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class XmlTask
 {
-    public static void main(String[] args) throws JDOMException, IOException {
+    Element root;
+    List<Element> nodeListElements;
+    List<Note> notes;
+    public XmlTask() throws IOException, SAXException, ParserConfigurationException {
         String fileName = "F:/students.xml";
+        org.jdom2.Document jdomDocument = createJDOMusingDOMParser(fileName);
+        Element root = jdomDocument.getRootElement();
         try {
-            // мы можем создать экземпляр JDOM Document из классов DOM, SAX и STAX Builder
-            org.jdom2.Document jdomDocument = createJDOMusingDOMParser(fileName);
-            Element root = jdomDocument.getRootElement();
-            // получаем список всех элементов Student
-            List<Element> studListElements = root.getChildren("Student");
-            // список объектов Student, в которых будем хранить
-            // считанные данные по каждому элементу
-            List<Student> students = new ArrayList<>();
-            for (Element studentEl : studListElements) {
-                Student student = new Student();
-                student.setId(Integer.parseInt(studentEl.getAttributeValue("id")));
-                student.setAge(Integer.parseInt(studentEl.getChildText("age")));
-                student.setName(studentEl.getChildText("name"));
-                student.setLanguage(studentEl.getChildText("language"));
+            nodeListElements = root.getChildren("Note");
+            notes = new ArrayList<>();
+            for (Element noteEl : nodeListElements) {
+                Note note = new Note();
+                note.setTitle(noteEl.getChildText("title"));
+                note.setText(noteEl.getChildText("text"));
+                Owner owner = new Owner();
+                owner.setMail(noteEl.getChild("owner").getAttributeValue("mail"));
+                owner.setName(noteEl.getChild("owner").getAttributeValue("name"));
+                note.setOwner(owner);
 
-                students.add(student);
-            }
-            // печатаем полученный список объектов Student
-            for (Student student : students) {
-                System.out.println(student.toString());
+                notes.add(note);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,12 +56,22 @@ public class XmlTask
 
     public String getNoteText(User owner, String title)
     {
+        String text = "";
+        for (Element noteEl : nodeListElements) {
+            if(noteEl.getChildText("title").equals(title) && noteEl.getChild("owner").getAttributeValue("name").equals(owner.GetName()) && noteEl.getChild("owner").getAttributeValue("mail").equals(owner.GetMail()))
+            text = noteEl.getChildText("text");
+        }
 
+
+        return text;
     }
 
     public void updateNote(User owner, String title, String newText)
     {
-
+        for (Element noteEl : nodeListElements) {
+            if(noteEl.getChildText("title").equals(title) && noteEl.getChild("owner").getAttributeValue("name").equals(owner.GetName()) && noteEl.getChild("owner").getAttributeValue("mail").equals(owner.GetMail()))
+               noteEl.getChild("text").setText(newText);
+        }
     }
 
     public void setPrivileges(String noteTitle, User user, int newRights)
