@@ -3,7 +3,7 @@
 <notes>
   <note>
     <title>Title1</title>
-    <text>NewText</text>
+    <text>NewText2</text>
     <owner mail="Mail1" name="Name1" />
     <privileges>
       <ALL rights="RW" />
@@ -22,7 +22,9 @@
     <text>Text13</text>
     <owner mail="Mail13" name="Name13" />
     <privileges>
-      <user mail="Mail3" name="Name3" rights="R" />
+	  <user mail="Mail31" name="Name31" rights="R" />
+      <user mail="Mail32" name="Name32" rights="R" />
+      <user mail="Mail33" name="Name33" rights="R" />
     </privileges>
   </note>
 </notes>

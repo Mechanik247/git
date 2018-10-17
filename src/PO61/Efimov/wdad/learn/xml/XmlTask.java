@@ -86,11 +86,22 @@ public class XmlTask
         xmlOut.output(jdomDocument, new FileWriter(fileName));
     }
 
-    public void setPrivileges(String noteTitle, User user, int newRights)
-    {
+    public void setPrivileges(String noteTitle, User user, int newRights) throws IOException {
         for (Element noteEl : nodeListElements) {
-            if(noteEl.getChildText("title").equals(title) && noteEl.getChild("owner").getAttributeValue("name").equals(owner.GetName()) && noteEl.getChild("owner").getAttributeValue("mail").equals(owner.GetMail()))
-                noteEl.getChild("text").setText(newText);
+            List<Element> usersElements = noteEl.getChild("privileges").getChildren("user");
+            for(Element userEl : usersElements) {
+                if (noteEl.getChildText("title").equals(noteTitle) && userEl.getAttributeValue("name").equals(user.GetName()) && userEl.getAttributeValue("mail").equals(user.GetMail()))
+                    if (newRights == 0) {
+                        userEl.detach();
+                        break;
+                    } else if (newRights == 1) {
+                        userEl.getAttribute("rights").setValue("R");
+                    } else if (newRights == 3) {
+                        userEl.getAttribute("rights").setValue("RW");
+                    }
+            }
         }
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
     }
 }

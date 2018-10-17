@@ -18,6 +18,11 @@ public class TestXmlTask {
         System.out.println(res);
         //xmlTask.PrintList();
 
-        xmlTask.updateNote(owner, "Title1", "NewText");
+        xmlTask.updateNote(owner, "Title1", "NewText2");
+
+        User user = new User();
+        user.SetName("Name31");
+        user.SetMail("Mail31");
+        xmlTask.setPrivileges("Title13",user,0);
     }
 }
