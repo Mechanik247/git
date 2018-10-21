@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE notes SYSTEM "notes.dtd">
+<notes>
+  <note>
+    <title>Title1</title>
+    <text>NewText2</text>
+    <owner mail="Mail1" name="Name1" />
+    <privileges>
+      <ALL rights="RW" />
+    </privileges>
+  </note>
+  <note>
+    <title>Title12</title>
+    <text>Text12</text>
+    <owner mail="Mail12" name="Name12" />
+    <privileges>
+      <ALL rights="R" />
+    </privileges>
+  </note>
+  <note>
+    <title>Title13</title>
+    <text>Text13</text>
+    <owner mail="Mail13" name="Name13" />
+    <privileges>
+	  <user mail="Mail31" name="Name31" rights="R" />
+      <user mail="Mail32" name="Name32" rights="R" />
+      <user mail="Mail33" name="Name33" rights="R" />
+    </privileges>
+  </note>
+</notes>
