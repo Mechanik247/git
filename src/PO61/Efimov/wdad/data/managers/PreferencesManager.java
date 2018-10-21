@@ -1,0 +1,107 @@
+package PO61.Efimov.wdad.data.managers;
+
+import org.jdom2.Element;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
+public final class PreferencesManager {
+    private static PreferencesManager instance;
+    Element root;
+    List<Element> nodeListElements;
+    XMLOutputter xmlOut;
+    org.jdom2.Document jdomDocument;
+    String fileName = "";
+
+    public PreferencesManager() throws IOException, SAXException, ParserConfigurationException {
+        fileName = "C:\\Users\\User\\IdeaProjects\\git\\src\\PO61\\Efimov\\wdad\\resources\\configuration\\appconfig.xml";
+        jdomDocument = createJDOMusingDOMParser(fileName);
+        xmlOut = new XMLOutputter();
+        root = jdomDocument.getRootElement();
+    }
+
+    public static PreferencesManager getInstance() throws ParserConfigurationException, SAXException, IOException {
+        if (instance == null) {
+            instance = new PreferencesManager();
+        }
+        return instance;
+    }
+
+    private static org.jdom2.Document createJDOMusingDOMParser(String fileName)
+            throws ParserConfigurationException, SAXException, IOException {
+        //создаем DOM Document
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder;
+        documentBuilder = dbFactory.newDocumentBuilder();
+        Document doc = documentBuilder.parse(new File(fileName));
+        DOMBuilder domBuilder = new DOMBuilder();
+
+        return domBuilder.build(doc);
+
+    }
+
+    public String GetCreateRegistry()
+    {
+        return root.getChild("rmi").getChild("server").getChild("registry").getChildText("createregistry");
+    }
+    public void SetCreateRegistry(String createregistry) throws IOException {
+        root.getChild("rmi").getChild("server").getChild("registry").getChild("createregistry").setText(createregistry);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    public String GetRegistryAddress()
+    {
+        return root.getChild("rmi").getChild("server").getChild("registry").getChildText("registryaddress");
+    }
+    public void SetRegistryAddress(String registryaddress) throws IOException {
+        root.getChild("rmi").getChild("server").getChild("registry").getChild("registryaddress").setText(registryaddress);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    public String GetRegistryPort()
+    {
+        return root.getChild("rmi").getChild("server").getChild("registry").getChildText("registryport");
+    }
+    public void SetRegistryPort(String registryport) throws IOException {
+        root.getChild("rmi").getChild("server").getChild("registry").getChild("registryport").setText(registryport);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    public String GetPolicyPath()
+    {
+        return root.getChild("rmi").getChild("client").getChildText("policypath");
+    }
+    public void SetPolicyPath(String policypath) throws IOException {
+        root.getChild("rmi").getChild("client").getChild("policypath").setText(policypath);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    public String GetUseCodeBaseOnly()
+    {
+        return root.getChild("rmi").getChild("client").getChildText("usecodebaseonly");
+    }
+    public void SetUseCodeBaseOnly(String usecodebaseonly) throws IOException {
+        root.getChild("rmi").getChild("client").getChild("usecodebaseonly").setText(usecodebaseonly);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+    public String GetClassProvider()
+    {
+        return root.getChild("rmi").getChildText("classprovider");
+    }
+    public void SetClassProvider(String classprovider) throws IOException {
+        root.getChild("rmi").getChild("classprovider").setText(classprovider);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+}

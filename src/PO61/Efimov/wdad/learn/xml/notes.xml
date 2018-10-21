@@ -22,7 +22,7 @@
     <text>Text13</text>
     <owner mail="Mail13" name="Name13" />
     <privileges>
-	  <user mail="Mail31" name="Name31" rights="R" />
+      <user mail="Mail31" name="Name31" rights="R" />
       <user mail="Mail32" name="Name32" rights="R" />
       <user mail="Mail33" name="Name33" rights="R" />
     </privileges>

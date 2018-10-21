@@ -1,5 +1,6 @@
 package PO61.Efimov.wdad.learn.xml;
 
+import PO61.Efimov.wdad.data.managers.PreferencesManager;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,6 +24,10 @@ public class TestXmlTask {
         User user = new User();
         user.SetName("Name31");
         user.SetMail("Mail31");
-        xmlTask.setPrivileges("Title13",user,0);
+        xmlTask.setPrivileges("Title13",user,1);
+
+        PreferencesManager preferencesManager = new PreferencesManager();
+        System.out.println(preferencesManager.GetCreateRegistry());
+        preferencesManager.SetCreateRegistry("yes");
     }
 }
