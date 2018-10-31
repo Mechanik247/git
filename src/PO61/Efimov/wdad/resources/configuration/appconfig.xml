@@ -23,7 +23,7 @@ directory or *jar file, or URL to *.jar file, containing *.class files --><!ATTL
       <registry>
         <createregistry>yes</createregistry>
         <registryaddress>localhost</registryaddress>
-        <registryport>1099</registryport>
+        <registryport>3555</registryport>
       </registry>
     </server>
     <client>
