@@ -8,9 +8,22 @@ import java.io.IOException;
 
 public class Server
 {
+    private static XmlDataManagerImpl xmlDataManager;
     static private PreferencesManager preferencesManager;
+
+    static private String policyPath;
+    static private String codebaseUrl;
+    static private String registryPort;
+    static private String registryAddres;
+    static private int executorPort;
+    static private String useCodebaseOnly;
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         preferencesManager = PreferencesManager.getInstance();
+        xmlDataManager = new XmlDataManagerImpl();
+        policyPath = preferencesManager.GetPolicyPath();
+        codebaseUrl = preferencesManager.GetUseCodeBaseOnly();
+        registryPort = preferencesManager.GetRegistryPort();
+        registryAddres = preferencesManager.GetRegistryAddress();
 
     }
 }
