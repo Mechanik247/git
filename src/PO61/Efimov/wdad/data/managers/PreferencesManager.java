@@ -120,8 +120,7 @@ public final class PreferencesManager {
     }
 
 
-    public void setProperty(String key, String value)
-    {
+    public void setProperty(String key, String value) throws IOException {
         String[] tags = key.split(".");
         Element element = null;
         for(String s : tags)
@@ -129,14 +128,28 @@ public final class PreferencesManager {
             element = root.getChild(s);
         }
         element.setText(value);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
     }
     public String getProperty(String key)
     {
-        return "null";
+        String[] tags = key.split(".");
+        Element element = null;
+        for(String s : tags)
+        {
+            element = root.getChild(s);
+        }
+        return element.getText();
     }
     public void setProperties(Properties prop)
     {
-        prop.stringPropertyNames().forEach(s -> setProperty(s,prop.getProperty(s)));
+        prop.stringPropertyNames().forEach(s -> {
+            try {
+                setProperty(s,prop.getProperty(s));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
     public Properties getProperties()
     {
@@ -145,7 +158,7 @@ public final class PreferencesManager {
                 PreferencesManagerConstants.POLICY_PATH, PreferencesManagerConstants.REGISTRY_ADDRESS,
                 PreferencesManagerConstants.USE_CODE_BASE_ONLY, PreferencesManagerConstants.REGISTRY_PORT};
         for(String s : keys){
-            properties.setProperty(s,document.getElementsByTagName(lastElementKey(s)).item(0).getTextContent());
+            properties.setProperty(s,getProperty(s));
         }
         return properties;
     }

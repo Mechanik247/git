@@ -76,11 +76,29 @@ public class XmlTask
 
         return text;
     }
-
-    public void updateNote(User owner, String title, String newText) throws IOException {
+    public Note getNote(User owner, String title)
+    {
+        String text = "";
+        Note note = new Note();
         for (Element noteEl : nodeListElements) {
             if(noteEl.getChildText("title").equals(title) && noteEl.getChild("owner").getAttributeValue("name").equals(owner.GetName()) && noteEl.getChild("owner").getAttributeValue("mail").equals(owner.GetMail()))
-               noteEl.getChild("text").setText(newText);
+            {
+                note.setText(noteEl.getChildText("text"));
+                note.setTitle(noteEl.getChildText("title"));
+                User user = new User();
+                user.SetMail(noteEl.getChild("owner").getAttributeValue("mail"));
+                user.SetName(noteEl.getChild("owner").getAttributeValue("name"));
+                note.setOwner(user);
+                return note;
+            }
+        }
+        return null;
+    }
+
+    public void updateNote(User owner, String title, StringBuilder newText) throws IOException {
+        for (Element noteEl : nodeListElements) {
+            if(noteEl.getChildText("title").equals(title) && noteEl.getChild("owner").getAttributeValue("name").equals(owner.GetName()) && noteEl.getChild("owner").getAttributeValue("mail").equals(owner.GetMail()))
+               noteEl.getChild("text").setText(newText.toString());
         }
         xmlOut.setFormat(Format.getPrettyFormat());
         xmlOut.output(jdomDocument, new FileWriter(fileName));
@@ -103,5 +121,24 @@ public class XmlTask
         }
         xmlOut.setFormat(Format.getPrettyFormat());
         xmlOut.output(jdomDocument, new FileWriter(fileName));
+    }
+
+    public ArrayList<Note> getNotes(User owner)
+    {
+        ArrayList<Note> notes = new ArrayList<>();
+        String text = "";
+        for (Element noteEl : nodeListElements) {
+            if(noteEl.getChild("owner").getAttributeValue("name").equals(owner.GetName()) && noteEl.getChild("owner").getAttributeValue("mail").equals(owner.GetMail())) {
+                Note note = new Note();
+                note.setText(noteEl.getChildText("text"));
+                note.setTitle(noteEl.getChildText("title"));
+                User user = new User();
+                user.SetMail(noteEl.getChild("owner").getAttributeValue("mail"));
+                user.SetName(noteEl.getChild("owner").getAttributeValue("name"));
+                note.setOwner(user);
+                notes.add(note);
+            }
+        }
+        return notes;
     }
 }
