@@ -125,7 +125,7 @@ public final class PreferencesManager {
     }
     public String getProperty(String key)
     {
-
+        return "";
     }
     public void setProperties(Properties prop)
     {
@@ -133,7 +133,7 @@ public final class PreferencesManager {
     }
     public Properties getProperties()
     {
-
+        return null;
     }
     public void addBindedObject(String name, String className)
     {
