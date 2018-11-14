@@ -65,6 +65,7 @@ public class Client
         owner.SetName("Name1");
         owner.SetMail("Mail1");
         Note note = xmlDataManager.getNote(owner, "Title1");
-        System.out.println(note.toString());
+        System.out.println("Text: " + note.getText() + '\n'
+        + "Title: " + note.getTitle());
     }
 }

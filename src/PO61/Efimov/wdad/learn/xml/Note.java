@@ -1,6 +1,8 @@
 package PO61.Efimov.wdad.learn.xml;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
     private String title;
     private String text;
     private String privileges;
