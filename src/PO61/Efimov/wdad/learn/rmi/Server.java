@@ -11,6 +11,7 @@ public class Server
     private static XmlDataManagerImpl xmlDataManager;
     static private PreferencesManager preferencesManager;
 
+    static private String createRegistry;
     static private String policyPath;
     static private String codebaseUrl;
     static private String registryPort;
@@ -22,8 +23,11 @@ public class Server
         xmlDataManager = new XmlDataManagerImpl();
         policyPath = preferencesManager.GetPolicyPath();
         codebaseUrl = preferencesManager.GetUseCodeBaseOnly();
+
         registryPort = preferencesManager.GetRegistryPort();
         registryAddres = preferencesManager.GetRegistryAddress();
+        createRegistry = preferencesManager.GetCreateRegistry();
 
+        xmlDataManager = new XmlDataManagerImpl();
     }
 }
