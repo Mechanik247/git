@@ -7,18 +7,6 @@ public class Note {
     private String cdate;
     private User owner;
 
-    @Override
-    public String toString()
-    {
-        StringBuilder str = new StringBuilder();
-        str.append("Title - ").append(getTitle()).append('\n');
-        str.append("Text - ").append(getText()).append('\n');
-        str.append("Privileges - ").append(getPrivileges()).append('\n');
-        str.append("cdate - ").append(getCdate()).append('\n');
-        str.append("Owner:\n").append(getOwner().toString()).append('\n');
-        return str.toString();
-    }
-
     public User getOwner() {
         return owner;
     }

@@ -7,6 +7,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class XmlDataManagerImpl implements XmlDataManager {
     }
 
     @Override
-    public Note getNote(User owner, String title)
+    public Note getNote(User owner, String title) throws RemoteException
     {
         return xmlTask.getNote(owner,title);
     }
@@ -34,8 +35,10 @@ public class XmlDataManagerImpl implements XmlDataManager {
         xmlTask.setPrivileges(noteTitle,user,newRights);
     }
 
-    @Override
+    /*
+    Override
     public ArrayList<Note> getNotes(User owner) {
         return xmlTask.getNotes(owner);
     }
+    */
 }

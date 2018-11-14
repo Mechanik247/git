@@ -1,6 +1,7 @@
 package PO61.Efimov.wdad.data.managers;
 
 import PO61.Efimov.wdad.utils.PreferencesManagerConstants;
+import com.sun.istack.internal.NotNull;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.output.Format;
@@ -131,15 +132,20 @@ public final class PreferencesManager {
         xmlOut.setFormat(Format.getPrettyFormat());
         xmlOut.output(jdomDocument, new FileWriter(fileName));
     }
+
     public String getProperty(String key)
     {
-        String[] tags = key.split(".");
-        Element element = null;
-        for(String s : tags)
+        String[] tags = key.split("\\.");
+        Element element = root;
+        for(String child : tags)
         {
-            element = root.getChild(s);
+            element = element.getChild(child);
         }
-        return element.getText();
+        if(element != null)
+        {
+            return element.getText();
+        }
+        return "";
     }
     public void setProperties(Properties prop)
     {

@@ -60,8 +60,7 @@ public class Client
         }
     }
 
-    public static void test(XmlDataManager xmlDataManager)
-    {
+    public static void test(XmlDataManager xmlDataManager) throws RemoteException {
         User owner = new User();
         owner.SetName("Name1");
         owner.SetMail("Mail1");

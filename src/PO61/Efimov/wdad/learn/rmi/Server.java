@@ -26,14 +26,25 @@ public class Server
     static private int executorPort;
     static private String useCodebaseOnly;
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+        System.out.println("Server is running...");
         preferencesManager = PreferencesManager.getInstance();
         xmlDataManager = new XmlDataManagerImpl();
         policyPath = preferencesManager.getProperty(PreferencesManagerConstants.POLICY_PATH);
+        System.out.println("policyPath - " + policyPath);
         useCodebaseOnly = preferencesManager.getProperty(PreferencesManagerConstants.USE_CODE_BASE_ONLY);
-        registryPort = Integer.parseInt(preferencesManager.getProperty(PreferencesManagerConstants.REGISTRY_PORT));
+        System.out.println("useCodebaseOnly - " + useCodebaseOnly);
+        String port = preferencesManager.getProperty(PreferencesManagerConstants.REGISTRY_PORT);
+        if(!port.equals(""))
+        {
+            registryPort = Integer.parseInt(port);
+            System.out.println("registryPort - " + registryPort);
+        }
         registryAddres = preferencesManager.getProperty(PreferencesManagerConstants.REGISTRY_ADDRESS);
+        System.out.println("registryAddres - " + registryAddres);
         createRegistry = preferencesManager.getProperty(PreferencesManagerConstants.CREATE_REGISTRY);
+        System.out.println("createRegistry - " + createRegistry);
         codebaseUrl = "file://".concat(Server.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        System.out.println("codebaseUrl - " + codebaseUrl);
         xmlDataManager = new XmlDataManagerImpl();
         System.setProperty("java.rmi.server.codebase", codebaseUrl);
         System.setProperty("java.rmi.server.useCodebaseOnly", useCodebaseOnly);
@@ -54,7 +65,7 @@ public class Server
             System.out.println("exporting object...");
             UnicastRemoteObject.exportObject(xmlDataManager, executorPort);
             registry.rebind(EXECUTOR_NAME, xmlDataManager);
-            System.out.println("idl-ing");
+            System.out.println("Server started.");
         } catch (RemoteException re) {
             System.err.println("cant export or bind object");
             re.printStackTrace();

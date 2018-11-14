@@ -19,7 +19,6 @@ public class TestXmlTask {
         System.out.println(res);
         //xmlTask.PrintList();
 
-        xmlTask.updateNote(owner, "Title1", "NewText2");
 
         User user = new User();
         user.SetName("Name31");

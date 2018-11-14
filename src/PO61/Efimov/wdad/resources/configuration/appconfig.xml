@@ -22,14 +22,14 @@ directory or *jar file, or URL to *.jar file, containing *.class files --><!ATTL
     <server>
       <registry>
         <createregistry>yes</createregistry>
-        <registryaddress>localhost</registryaddress>
-        <registryport>3357</registryport>
+        <registryaddress>127.0.0.1</registryaddress>
+        <registryport>25565</registryport>
       </registry>
     </server>
     <client>
-      <policypath>client.policy</policypath>
-      <usecodebaseonly>no</usecodebaseonly>
+      <policypath>/Users\User\IdeaProjects\git\src\PO61\Efimov\wdad\learn\rmi\security.policy</policypath>
+      <usecodebaseonly>yes</usecodebaseonly>
     </client>
-    <classprovider>http://www.yourhost.free.ru/cp/cp.jar</classprovider>
+    <classprovider></classprovider>
   </rmi>
 </appconfig>
