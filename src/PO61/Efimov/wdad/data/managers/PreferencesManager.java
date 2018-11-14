@@ -125,7 +125,7 @@ public final class PreferencesManager {
     }
     public String getProperty(String key)
     {
-        return "";
+        return "null";
     }
     public void setProperties(Properties prop)
     {
