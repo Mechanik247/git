@@ -1,6 +1,8 @@
 package PO61.Efimov.wdad.learn.rmi;
 
 import PO61.Efimov.wdad.data.managers.PreferencesManager;
+import PO61.Efimov.wdad.learn.xml.Note;
+import PO61.Efimov.wdad.learn.xml.User;
 import PO61.Efimov.wdad.utils.PreferencesManagerConstants;
 import org.xml.sax.SAXException;
 
@@ -11,6 +13,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.security.acl.Owner;
 
 public class Client
 {
@@ -55,5 +58,14 @@ public class Client
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void test(XmlDataManager xmlDataManager)
+    {
+        User owner = new User();
+        owner.SetName("Name1");
+        owner.SetMail("Mail1");
+        Note note = xmlDataManager.getNote(owner, "Title1");
+        System.out.println(note.toString());
     }
 }
