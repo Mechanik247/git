@@ -23,8 +23,11 @@ public class DataSourceTest
         JDBCDataManager jdbcDataManager = new JDBCDataManager();
         User user = new User();
         user.SetName("Kalyvan");
-        Note note = jdbcDataManager.getNote(user,"Kalymim");
+        //Note note = jdbcDataManager.getNote(user,"Kalymim");
 
-        System.out.println(note.toString());
+        User owner = new User();
+        owner.SetName("Kalyvan");
+        jdbcDataManager.updateNote(owner,"Kalymim","newwww");
+        //System.out.println(note.toString());
     }
 }

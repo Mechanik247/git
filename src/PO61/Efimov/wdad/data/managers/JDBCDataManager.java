@@ -54,8 +54,31 @@ public class JDBCDataManager implements DataManager
     }
 
     @Override
-    public void updateNote(User owner, String title, StringBuilder newText) throws RemoteException, IOException {
-
+    public void updateNote(User owner, String title, String newText) throws RemoteException, IOException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException {
+        DataSource ds = DataSourceFactory.createDataSource();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Note note = new Note();
+        User user = new User();
+        try {
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE notes " +
+                    "SET text = '" + newText + "' " +
+                    "WHERE title = '"+title+"' AND " +
+                    "author_id = (SELECT id FROM users WHERE name = '"+owner.GetName()+"')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                if(rs != null) rs.close();
+                if(stmt != null) stmt.close();
+                if(con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

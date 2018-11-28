@@ -13,6 +13,6 @@ public interface DataManager
 {
     public Note getNote(User owner, String title) throws IOException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException;
 
-    public void updateNote(User owner, String title,StringBuilder newText) throws RemoteException, IOException;
+    public void updateNote(User owner, String title,String newText) throws RemoteException, IOException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException;
     public void setPrivileges(String noteTitle,User user,int newRights) throws RemoteException, IOException;
 }
