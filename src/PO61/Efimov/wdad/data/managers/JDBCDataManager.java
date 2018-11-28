@@ -82,7 +82,28 @@ public class JDBCDataManager implements DataManager
     }
 
     @Override
-    public void setPrivileges(String noteTitle, User user, int newRights) throws RemoteException, IOException {
-
+    public void setPrivileges(String noteTitle, User user, int newRights) throws RemoteException, IOException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException {
+        DataSource ds = DataSourceFactory.createDataSource();
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE user_privileges " +
+                    "SET privilege = '" + newRights + "' " +
+                    "WHERE notes_id = (SELECT id FROM notes WHERE title = '"+noteTitle+"') AND " +
+                    "users_id = (SELECT id FROM users WHERE name = '"+user.GetName()+"')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                if(rs != null) rs.close();
+                if(stmt != null) stmt.close();
+                if(con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

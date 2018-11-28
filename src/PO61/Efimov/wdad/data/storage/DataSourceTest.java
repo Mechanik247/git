@@ -27,7 +27,8 @@ public class DataSourceTest
 
         User owner = new User();
         owner.SetName("Kalyvan");
-        jdbcDataManager.updateNote(owner,"Kalymim","newwww");
+        //jdbcDataManager.updateNote(owner,"Kalymim","newwww");
         //System.out.println(note.toString());
+        jdbcDataManager.setPrivileges("Kalymim",owner,3);
     }
 }
