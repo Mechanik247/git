@@ -1,5 +1,7 @@
 package PO61.Efimov.wdad.data.managers;
 
+import PO61.Efimov.wdad.utils.PreferencesManagerConstants;
+import com.sun.istack.internal.NotNull;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.output.Format;
@@ -119,21 +121,52 @@ public final class PreferencesManager {
     }
 
 
-    public void setProperty(String key, String value)
-    {
-
+    public void setProperty(String key, String value) throws IOException {
+        String[] tags = key.split("\\.");
+        Element element = null;
+        for(String s : tags)
+        {
+            element = root.getChild(s);
+        }
+        element.setText(value);
+        xmlOut.setFormat(Format.getPrettyFormat());
+        xmlOut.output(jdomDocument, new FileWriter(fileName));
     }
+
     public String getProperty(String key)
     {
-        return "null";
+        String[] tags = key.split("\\.");
+        Element element = root;
+        for(String child : tags)
+        {
+            element = element.getChild(child);
+        }
+        if(element != null)
+        {
+            return element.getText();
+        }
+        return "";
     }
     public void setProperties(Properties prop)
     {
-
+        prop.stringPropertyNames().forEach(s -> {
+            try {
+                setProperty(s,prop.getProperty(s));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
     public Properties getProperties()
     {
-        return null;
+        Properties properties = new Properties();
+        String[] keys = {PreferencesManagerConstants.CLASS_PROVIDER,PreferencesManagerConstants.CREATE_REGISTRY,
+                PreferencesManagerConstants.POLICY_PATH, PreferencesManagerConstants.REGISTRY_ADDRESS,
+                PreferencesManagerConstants.USE_CODE_BASE_ONLY, PreferencesManagerConstants.REGISTRY_PORT};
+        for(String s : keys){
+            properties.setProperty(s,getProperty(s));
+        }
+        return properties;
     }
     public void addBindedObject(String name, String className)
     {
