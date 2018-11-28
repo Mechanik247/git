@@ -1,5 +1,8 @@
 package PO61.Efimov.wdad.data.storage;
 
+import PO61.Efimov.wdad.data.managers.JDBCDataManager;
+import PO61.Efimov.wdad.learn.xml.Note;
+import PO61.Efimov.wdad.learn.xml.User;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,28 +20,11 @@ public class DataSourceTest
 
     }
     private static void testDataSource() throws ClassNotFoundException, SQLException, ParserConfigurationException, SAXException, IOException {
-        DataSource ds = DataSourceFactory.createDataSource();
+        JDBCDataManager jdbcDataManager = new JDBCDataManager();
+        User user = new User();
+        user.SetName("Kalyvan");
+        Note note = jdbcDataManager.getNote(user,"Kalymim");
 
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            con = ds.getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("select id, title, creation_date from notes");
-            while(rs.next()){
-                System.out.println("id: "+rs.getInt("id")+", title: "+rs.getString("title")+", creation_date: "+rs.getString("creation_date"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                if(rs != null) rs.close();
-                if(stmt != null) stmt.close();
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        System.out.println(note.toString());
     }
 }

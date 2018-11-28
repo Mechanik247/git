@@ -50,7 +50,7 @@ directory or *jar file, or URL to *.jar file, containing *.class files -->
     <hostName>localhost</hostName>
     <port>3306</port>
     <DBName>notes</DBName>
-    <user>jdbc</user>
-    <pass>1234</pass>
+    <user>root</user>
+    <pass></pass>
   </datasource>
 </appconfig>

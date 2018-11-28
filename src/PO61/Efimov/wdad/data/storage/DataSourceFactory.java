@@ -47,14 +47,19 @@ public class DataSourceFactory
         dataSource.setPassword(pass);
         return dataSource;
     }
-    public static javax.sql.DataSource createDataSource(String className, String
+    public static DataSource createDataSource(String className, String
             driverType, String hostName, int port, String DBName, String user, String pass)
     {
-        MysqlDataSource mysqlDS = new MysqlDataSource();
-        mysqlDS.setURL("jdbc:" + driverType + "://" + hostName + ":" + port + "/" + DBName);
-        mysqlDS.setUser(user);
-        mysqlDS.setPassword(pass);
-
-        return mysqlDS;
+        DataSource dataSource = new DataSource();
+        dataSource.setUrl("jdbc:" + driverType + "://" + hostName + ":" + port + "/" + DBName +
+                "?verifyServerCertificate=false"+
+                "&useSSL=false"+
+                "&requireSSL=false"+
+                "&useLegacyDatetimeCode=false"+
+                "&amp"+
+                "&serverTimezone=UTC");
+        dataSource.setLogin(user);
+        dataSource.setPassword(pass);
+        return dataSource;
     }
 }
