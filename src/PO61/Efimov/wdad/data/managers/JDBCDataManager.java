@@ -9,10 +9,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class JDBCDataManager implements DataManager
 {
@@ -21,13 +18,22 @@ public class JDBCDataManager implements DataManager
     public Note getNote(User owner, String title) throws IOException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException {
         DataSource ds = DataSourceFactory.createDataSource();
         Connection con = null;
+        //todo PreparedStatement;
         Statement stmt = null;
+        PreparedStatement statement = null;
         ResultSet rs = null;
         Note note = new Note();
         User user = new User();
         try {
             con = ds.getConnection();
             stmt = con.createStatement();
+            statement = con.prepareStatement("SELECT title, creation_date, text, users.name " +
+                    "FROM notes INNER JOIN users ON notes.author_id = users.id " +
+                    "WHERE notes.title = ? AND users.name = ?");
+            statement.setString(1, title);
+            statement.setString(2, owner.GetName());
+
+
             rs = stmt.executeQuery("SELECT title, creation_date, text, users.name " +
                     "FROM notes INNER JOIN users ON notes.author_id = users.id " +
                     "WHERE notes.title = '" + title +
@@ -57,6 +63,7 @@ public class JDBCDataManager implements DataManager
     public void updateNote(User owner, String title, String newText) throws RemoteException, IOException, ClassNotFoundException, SQLException, ParserConfigurationException, SAXException {
         DataSource ds = DataSourceFactory.createDataSource();
         Connection con = null;
+        //todo preparedStatement
         Statement stmt = null;
         ResultSet rs = null;
         Note note = new Note();
@@ -90,6 +97,7 @@ public class JDBCDataManager implements DataManager
         try {
             con = ds.getConnection();
             stmt = con.createStatement();
+            //todo preparedStatement
             stmt.executeUpdate("UPDATE user_privileges " +
                     "SET privilege = '" + newRights + "' " +
                     "WHERE notes_id = (SELECT id FROM notes WHERE title = '"+noteTitle+"') AND " +
