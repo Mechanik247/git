@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+//todo этот класс нафиг не нужен
 public class DataSource {
     private String url;
     private String login;

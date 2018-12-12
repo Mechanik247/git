@@ -34,7 +34,7 @@ public class DataSourceFactory
         DBName = preferencesManager.getProperty(PreferencesManagerConstants.DB_NAME);
         user = preferencesManager.getProperty(PreferencesManagerConstants.USER);
         pass = preferencesManager.getProperty(PreferencesManagerConstants.PASS);
-
+        //todo здесь нужно использовать класс, реализующий интерфейс DataSource, из комплекта jdbc твоего вендора СУБД
         DataSource dataSource = new DataSource();
         dataSource.setUrl("jdbc:" + driverType + "://" + hostName + ":" + port + "/" + DBName +
                 "?verifyServerCertificate=false"+
@@ -50,6 +50,7 @@ public class DataSourceFactory
     public static DataSource createDataSource(String className, String
             driverType, String hostName, int port, String DBName, String user, String pass)
     {
+        //todo здесь нужно использовать класс, реализующий интерфейс DataSource, из комплекта jdbc твоего вендора СУБД
         DataSource dataSource = new DataSource();
         dataSource.setUrl("jdbc:" + driverType + "://" + hostName + ":" + port + "/" + DBName +
                 "?verifyServerCertificate=false"+
