@@ -40,6 +40,7 @@ public class JDBCDataManager implements DataManager
                 note.setText(rs.getString("text"));
                 user.SetName(rs.getString("name"));
                 note.setOwner(user);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
