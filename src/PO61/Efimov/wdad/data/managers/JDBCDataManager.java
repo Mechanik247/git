@@ -1,11 +1,11 @@
 package PO61.Efimov.wdad.data.managers;
 
-import PO61.Efimov.wdad.data.storage.DataSource;
 import PO61.Efimov.wdad.data.storage.DataSourceFactory;
 import PO61.Efimov.wdad.learn.xml.Note;
 import PO61.Efimov.wdad.learn.xml.User;
 import org.xml.sax.SAXException;
 
+import javax.sql.DataSource;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.rmi.RemoteException;
